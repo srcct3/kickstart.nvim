@@ -201,6 +201,30 @@ require('lazy').setup({
   -- options to `gitsigns.nvim`.
   --
   -- See `:help gitsigns` to understand what the configuration keys do
+
+  -- Installed by me
+  {
+    'akinsho/toggleterm.nvim',
+    version = '*',
+    config = function()
+      require('toggleterm').setup {
+        size = 15,
+        direction = 'horizontal',
+        start_in_insert = true,
+        persist_size = true,
+        persist_mode = true,
+        close_on_exit = true,
+      }
+
+      -- Keymaps
+      local opts = { noremap = true, silent = true }
+      -- Normal & Insert mode mappings
+      vim.keymap.set({ 'n', 'i' }, '<A-j>', '<cmd>ToggleTerm<CR>', opts)
+
+      -- Terminal mode mapping (t mode is special)
+      vim.keymap.set('t', '<A-j>', [[<C-\><C-n><cmd>ToggleTerm<CR>]], opts)
+    end,
+  },
   { -- Adds git related signs to the gutter, as well as utilities for managing changes
     'lewis6991/gitsigns.nvim',
     opts = {

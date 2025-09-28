@@ -208,11 +208,11 @@ require('lazy').setup({
     version = '*',
     config = function()
       require('toggleterm').setup {
-        size = 15,
+        size = 25,
         direction = 'horizontal',
         start_in_insert = true,
         persist_size = true,
-        persist_mode = true,
+        persist_mode = false,
         close_on_exit = true,
       }
 
@@ -830,20 +830,26 @@ require('lazy').setup({
     },
   },
   {
-    'metalelf0/black-metal-theme-neovim',
-    lazy = false,
-    priority = 1000,
-    config = function()
-      require('black-metal').setup {
-        -- optional configuration here
-      }
-      require('black-metal').load()
-    end,
-    -- optionally set the colorscheme within lazy config
+    'wnkz/monoglow.nvim',
     init = function()
-      vim.cmd 'colorscheme immortal'
+      vim.cmd 'colorscheme monoglow'
     end,
   },
+  -- {
+  --   'metalelf0/black-metal-theme-neovim',
+  --   lazy = false,
+  --   priority = 1000,
+  --   config = function()
+  --     require('black-metal').setup {
+  --       -- optional configuration here
+  --     }
+  --     require('black-metal').load()
+  --   end,
+  --   -- optionally set the colorscheme within lazy config
+  --   init = function()
+  --     vim.cmd 'colorscheme immortal'
+  --   end,
+  -- },
   --  { -- You can easily change to a different colorscheme.
   --    -- Change the name of the colorscheme plugin below, and then
   --    -- change the command in the config to whatever the name of that colorscheme is.

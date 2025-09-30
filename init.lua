@@ -178,7 +178,7 @@ rtp:prepend(lazypath)
 require('lazy').setup({
   -- NOTE: Plugins can be added with a link (or for a github repo: 'owner/repo' link).
   'NMAC427/guess-indent.nvim', -- Detect tabstop and shiftwidth automatically
-
+  'numToStr/Comment.nvim',
   -- NOTE: Plugins can also be added by using a table,
   -- with the first argument being the link and the following
   -- keys can be used to configure plugin behavior/loading/etc.
@@ -204,9 +204,14 @@ require('lazy').setup({
 
   -- Installed by me
   {
-    'numToStr/Comment.nvim',
-    opts = {
-      -- add any options here
+    'MagicDuck/grug-far.nvim',
+    keys = {
+      {
+        '<leader>r',
+        mode = { 'n', 'v' },
+        '<cmd>GrugFarWithin<cr>',
+        desc = 'Search and replace within selection',
+      },
     },
   },
   ---@type LazySpec
@@ -881,8 +886,28 @@ require('lazy').setup({
   },
   {
     'wnkz/monoglow.nvim',
+    opts = {
+      on_highlights = function(hl, c)
+        -- Find a new color. Example: a light blue for comments.
+        -- Replace this hex code with your preferred color.
+        local new_comment_color = '#788085'
+
+        -- Override the standard 'Comment' highlight group
+        hl.Comment = {
+          fg = new_comment_color,
+          -- You can also optionally change styling:
+          -- italic = false,
+          -- bold = true,
+        }
+
+        -- If you use Tree-sitter, you may also want to override the Tree-sitter comment group
+        hl['@comment'] = {
+          fg = new_comment_color,
+        }
+      end,
+    },
     init = function()
-      vim.cmd 'colorscheme monoglow'
+      vim.cmd 'colorscheme monoglow-void'
     end,
   },
   -- {

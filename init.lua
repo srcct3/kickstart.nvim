@@ -38,6 +38,16 @@ vim.api.nvim_create_autocmd('TextYankPost', {
   end,
 })
 
+vim.api.nvim_create_autocmd('ModeChanged', {
+  callback = function()
+    local mode = vim.fn.mode()
+    if mode == 'i' then
+      vim.cmd 'highlight Cursor guifg=black guibg=#a0a0a0'
+    else
+      vim.cmd 'highlight Cursor guifg=black guibg=#888888'
+    end
+  end,
+})
 local lazypath = vim.fn.stdpath 'data' .. '/lazy/lazy.nvim'
 if not (vim.uv or vim.loop).fs_stat(lazypath) then
   local lazyrepo = 'https://github.com/folke/lazy.nvim.git'
@@ -535,24 +545,39 @@ require('lazy').setup({
     },
   },
   {
-    'wnkz/monoglow.nvim',
-    opts = {
-      on_highlights = function(hl, c)
-        local new_comment_color = '#788085'
-
-        hl.Comment = {
-          fg = new_comment_color,
-        }
-
-        hl['@comment'] = {
-          fg = new_comment_color,
-        }
-      end,
-    },
-    init = function()
-      vim.cmd 'colorscheme monoglow-void'
+    'e-ink-colorscheme/e-ink.nvim',
+    priority = 1000,
+    config = function()
+      require('e-ink').setup()
+      vim.cmd.colorscheme 'e-ink'
+      -- choose light mode or dark mode
+      -- vim.opt.background = "dark"
+      vim.opt.background = 'light'
+      --
+      -- or do
+      -- :set background=dark
+      -- :set background=light
     end,
   },
+  -- {
+  --   'wnkz/monoglow.nvim',
+  --   opts = {
+  --     on_highlights = function(hl, c)
+  --       local new_comment_color = '#788085'
+  --
+  --       hl.Comment = {
+  --         fg = new_comment_color,
+  --       }
+  --
+  --       hl['@comment'] = {
+  --         fg = new_comment_color,
+  --       }
+  --     end,
+  --   },
+  --   init = function()
+  --     vim.cmd 'colorscheme monoglow-void'
+  --   end,
+  -- },
   { 'folke/todo-comments.nvim', event = 'VimEnter', dependencies = { 'nvim-lua/plenary.nvim' }, opts = { signs = false } },
 
   { -- Collection of various small independent plugins/modules

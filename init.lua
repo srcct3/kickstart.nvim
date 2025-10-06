@@ -67,6 +67,15 @@ require('lazy').setup({
 
   -- Installed by me
   {
+    'iamcco/markdown-preview.nvim',
+    cmd = { 'MarkdownPreviewToggle', 'MarkdownPreview', 'MarkdownPreviewStop' },
+    build = 'cd app && yarn install',
+    init = function()
+      vim.g.mkdp_filetypes = { 'markdown' }
+    end,
+    ft = { 'markdown' },
+  },
+  {
     'S1M0N38/love2d.nvim',
     event = 'VeryLazy',
     version = '2.*',
